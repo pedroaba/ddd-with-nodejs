@@ -1,21 +1,26 @@
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Question } from '../../enterprise/entities/question'
 import { QuestionsRepository } from '../repositories/question-repository'
 
-interface DeleteQuestionUseCaseRequest {
+interface EditQuestionUseCaseRequest {
   authorId: string
   questionId: string
+  title: string
+  content: string
 }
 
-type DeleteQuestionUseCaseResponse = {}
+type EditQuestionUseCaseResponse = {
+  question: Question
+}
 
-export class DeleteQuestionUseCase {
+export class EditQuestionUseCase {
   constructor(private questionsRepository: QuestionsRepository) {}
 
   async execute({
     authorId,
     questionId,
-  }: DeleteQuestionUseCaseRequest): Promise<DeleteQuestionUseCaseResponse> {
+    title,
+    content,
+  }: EditQuestionUseCaseRequest): Promise<EditQuestionUseCaseResponse> {
     const question = await this.questionsRepository.findById(questionId)
 
     if (!question) {
@@ -26,8 +31,11 @@ export class DeleteQuestionUseCase {
       throw new Error('Not allowed')
     }
 
-    await this.questionsRepository.delete(question)
+    question.title = title
+    question.content = content
 
-    return {}
+    await this.questionsRepository.save(question)
+
+    return { question }
   }
 }
