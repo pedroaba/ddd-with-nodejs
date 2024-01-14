@@ -2,8 +2,8 @@ import { AnswersRepository } from '@/domain/forum/application/repositories/answe
 import { Question } from '@/domain/forum/enterprise/entities/question'
 import { QuestionsRepository } from '@/domain/forum/application/repositories/question-repository'
 import { Either, left, right } from '@/core/either'
-import { ResourceNotFoundError } from './errors/resource-not-found-error'
-import { NotAllowed } from './errors/not-allowed-error'
+import { ResourceNotFoundError } from '../../../../core/errors/resource-not-found-error'
+import { NotAllowedError } from '../../../../core/errors/not-allowed-error'
 
 interface ChooseQuestionBestAnswerUseCaseRequest {
   authorId: string
@@ -11,7 +11,7 @@ interface ChooseQuestionBestAnswerUseCaseRequest {
 }
 
 type ChooseQuestionBestAnswerUseCaseResponse = Either<
-  ResourceNotFoundError | NotAllowed,
+  ResourceNotFoundError | NotAllowedError,
   {
     question: Question
   }
@@ -42,7 +42,7 @@ export class ChooseQuestionBestAnswerUseCase {
     }
 
     if (authorId !== question.authorId.toString()) {
-      return left(new NotAllowed())
+      return left(new NotAllowedError())
     }
 
     question.bestAnswerId = answer.id

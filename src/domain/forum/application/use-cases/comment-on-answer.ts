@@ -3,8 +3,8 @@ import { AnswersRepository } from '../repositories/answers-repository'
 import { AnswerComment } from '@/domain/forum/enterprise/entities/answer-comment'
 import { AnswerCommentRepository } from '@/domain/forum/application/repositories/answers-comment-repository'
 import { Either, left, right } from '@/core/either'
-import { ResourceNotFoundError } from './errors/resource-not-found-error'
-import { NotAllowed } from './errors/not-allowed-error'
+import { ResourceNotFoundError } from '../../../../core/errors/resource-not-found-error'
+import { NotAllowedError } from '../../../../core/errors/not-allowed-error'
 
 interface CommentOnAnswerUseCaseRequest {
   authorId: string
@@ -33,7 +33,7 @@ export class CommentOnAnswerUseCase {
     const answer = await this.answersRepository.findById(answerId)
 
     if (!answer) {
-      return left(new NotAllowed())
+      return left(new NotAllowedError())
     }
 
     const answerComment = AnswerComment.create({

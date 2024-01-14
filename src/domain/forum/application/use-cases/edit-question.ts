@@ -1,8 +1,8 @@
 import { Either, left, right } from '@/core/either'
 import { Question } from '../../enterprise/entities/question'
 import { QuestionsRepository } from '../repositories/question-repository'
-import { NotAllowed } from './errors/not-allowed-error'
-import { ResourceNotFoundError } from './errors/resource-not-found-error'
+import { NotAllowedError } from '../../../../core/errors/not-allowed-error'
+import { ResourceNotFoundError } from '../../../../core/errors/resource-not-found-error'
 import { QuestionAttachmentRepository } from '../repositories/question-attachment-repository'
 import { QuestionAttachmentList } from '../../enterprise/entities/question-attachement-list'
 import { QuestionAttachment } from '../../enterprise/entities/question-attachment'
@@ -17,7 +17,7 @@ interface EditQuestionUseCaseRequest {
 }
 
 type EditQuestionUseCaseResponse = Either<
-  ResourceNotFoundError | NotAllowed,
+  ResourceNotFoundError | NotAllowedError,
   {
     question: Question
   }
@@ -43,7 +43,7 @@ export class EditQuestionUseCase {
     }
 
     if (authorId !== question.authorId.toString()) {
-      return left(new NotAllowed())
+      return left(new NotAllowedError())
     }
 
     const currentQuestionAttachment =

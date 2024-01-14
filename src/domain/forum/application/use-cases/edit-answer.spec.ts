@@ -3,7 +3,7 @@ import { expect } from 'vitest'
 import { EditAnswerUseCase } from '@/domain/forum/application/use-cases/edit-answer'
 import { InMemoryAnswersRepository } from 'test/repositories/in-memory-answers-repository'
 import { makeAnswer } from 'test/factories/make-answer'
-import { NotAllowed } from './errors/not-allowed-error'
+import { NotAllowedError } from '../../../../core/errors/not-allowed-error'
 import { InMemoryAnswerAttachmentRepository } from 'test/repositories/in-memory-answer-attachment-repository'
 import { makeAnswerAttachment } from 'test/factories/make-answer-attachment'
 
@@ -82,6 +82,6 @@ describe('Edit Answer', () => {
     })
 
     expect(result.isLeft()).toBe(true)
-    expect(result.value).toBeInstanceOf(NotAllowed)
+    expect(result.value).toBeInstanceOf(NotAllowedError)
   })
 })

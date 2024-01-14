@@ -1,7 +1,7 @@
 import { AnswersRepository } from '@/domain/forum/application/repositories/answers-repository'
 import { Answer } from '@/domain/forum/enterprise/entities/answer'
-import { NotAllowed } from './errors/not-allowed-error'
-import { ResourceNotFoundError } from './errors/resource-not-found-error'
+import { NotAllowedError } from '../../../../core/errors/not-allowed-error'
+import { ResourceNotFoundError } from '../../../../core/errors/resource-not-found-error'
 import { Either, left, right } from '@/core/either'
 import { AnswerAttachment } from '../../enterprise/entities/answer-attachment'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
@@ -16,7 +16,7 @@ interface EditAnswerUseCaseRequest {
 }
 
 type EditAnswerUseCaseResponse = Either<
-  ResourceNotFoundError | NotAllowed,
+  ResourceNotFoundError | NotAllowedError,
   {
     answer: Answer
   }
@@ -41,7 +41,7 @@ export class EditAnswerUseCase {
     }
 
     if (authorId !== answer.authorId.toString()) {
-      return left(new NotAllowed())
+      return left(new NotAllowedError())
     }
     const currentAnswerAttachment =
       await this.answerAttachmentRepository.findManyByAnswerId(
