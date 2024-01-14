@@ -11,12 +11,8 @@ export class UniqueEntityID {
     return this.value
   }
 
-  equals(other: UniqueEntityID | string) {
-    if (other instanceof UniqueEntityID) {
-      return other.value === this.value
-    }
-
-    return this.value === other
+  equals(id: UniqueEntityID) {
+    return id.toValue() === this.toValue()
   }
 
   constructor(value?: string) {
