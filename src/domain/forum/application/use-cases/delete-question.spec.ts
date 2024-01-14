@@ -3,6 +3,7 @@ import { makeQuestion } from 'test/factories/make-question'
 import { DeleteQuestionUseCase } from '@/domain/forum/application/use-cases/delete-question'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { expect } from 'vitest'
+import { NotAllowed } from './errors/not-allowed-error'
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository
 let sut: DeleteQuestionUseCase
@@ -34,12 +35,12 @@ describe('Delete Question By Slug', () => {
       new UniqueEntityID('question-1'),
     )
     await inMemoryQuestionsRepository.create(newQuestion)
+    const result = await sut.execute({
+      questionId: 'question-1',
+      authorId: 'author-2',
+    })
 
-    expect(() => {
-      return sut.execute({
-        questionId: 'question-1',
-        authorId: 'author-2',
-      })
-    }).rejects.toBeInstanceOf(Error)
+    expect(result.isLeft()).toBe(true)
+    expect(result.value).toBeInstanceOf(NotAllowed)
   })
 })
