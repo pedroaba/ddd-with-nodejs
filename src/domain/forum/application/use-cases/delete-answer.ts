@@ -5,7 +5,7 @@ import { NotAllowed } from './errors/not-allowed-error'
 
 interface DeleteAnswerUseCaseRequest {
   authorId: string
-  questionId: string
+  answerId: string
 }
 
 type DeleteAnswerUseCaseResponse = Either<
@@ -18,19 +18,19 @@ export class DeleteAnswerUseCase {
 
   async execute({
     authorId,
-    questionId,
+    answerId,
   }: DeleteAnswerUseCaseRequest): Promise<DeleteAnswerUseCaseResponse> {
-    const question = await this.answersRepository.findById(questionId)
+    const answer = await this.answersRepository.findById(answerId)
 
-    if (!question) {
+    if (!answer) {
       return left(new ResourceNotFoundError())
     }
 
-    if (authorId !== question.authorId.toString()) {
+    if (authorId !== answer.authorId.toString()) {
       return left(new NotAllowed())
     }
 
-    await this.answersRepository.delete(question)
+    await this.answersRepository.delete(answer)
 
     return right({})
   }
