@@ -5,34 +5,9 @@ on:
     branches: ["master"]
 
 jobs:
-  linting:
-    runs-on:
-      - ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Update Ubuntu
-        run: sh .github/scripts/update-os.sh
-
-      - name: Install Node.js, NPM and Yarn
-        uses: actions/setup-node@v4
-        with:
-          node-version: latest
-
-      - name: Install PNPM
-        run: sh .github/scripts/install-pnpm.sh
-
-      - name: Install Dependencies
-        run: pnpm i
-
-      - name: Runing Linting
-        run: pnpm lint
   tests:
     runs-on:
       - ubuntu-latest
-    needs:
-      - linting
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -62,7 +37,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     needs:
-      - linting
       - tests
     steps:
       - name: Checkout

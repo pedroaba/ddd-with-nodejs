@@ -1,27 +1,27 @@
 {
-  "extends": [
-    "@rocketseat/eslint-config/node", 
-    "plugin:vitest-globals/recommended"
-  ],
-  "ignorePatterns": [
-    "node_modules"
-  ],
-  "env": {
-    "vitest-globals/env": true
-  },
-  "rules": {
-    "prettier/prettier": [
-      "error",
-      {
-        "endOfLine": "crlf",
-        "singleQuote": true,
-        "semi": false
-      }
+    "extends": [
+        "@rocketseat/eslint-config/node",
+        "plugin:vitest-globals/recommended"
     ],
-    "no-new": "off",
-    "camelcase": "off",
-    "no-useless-constructor": "off",
-    "@typescript-eslint/ban-types": "off",
-    "@typescript-eslint/no-explicit-any": "off"
-  }
+    "ignorePatterns": [
+        "node_modules"
+    ],
+    "env": {
+        "vitest-globals/env": true
+    },
+    "rules": {
+        "prettier/prettier": [
+            "error",
+            {
+                "endOfLine": "crlf",
+                "singleQuote": true,
+                "semi": false
+            }
+        ],
+        "no-new": "off",
+        "camelcase": "off",
+        "no-useless-constructor": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/no-explicit-any": "off"
+    }
 }
