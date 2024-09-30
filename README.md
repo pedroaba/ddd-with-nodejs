@@ -32,14 +32,12 @@ facilitar o desenvolvimento de APIs RESTful com foco na organização do código
    pnpm install
    ```
 
-3. Configure a conexão com o banco de dados criando um arquivo `.env` baseado no `.env.example`.
-
-4. Execute as migrações do banco de dados:
+3. Execute as migrações do banco de dados:
    ```bash
    pnpm run db:migrate
    ```
 
-5. Inicie a aplicação:
+4. Inicie a aplicação:
    ```bash
    pnpm dev
    ```
