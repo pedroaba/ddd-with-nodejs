@@ -1,0 +1,36 @@
+name: API Pipeline
+
+on:
+  push:
+    branches: ["master"]
+
+jobs:
+  tests:
+    runs-on:
+      - ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Update Ubuntu
+        run: sh .github/scripts/update-os.sh
+
+      - name: Install Node.js, NPM and Yarn
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+
+      - name: Install PNPM
+        run: sh .github/scripts/install-pnpm.sh
+
+      - name: Install Dependencies
+        run: pnpm i
+
+      - name: Runing Tests
+        run: pnpm test:cov
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: reports
+          path: covarage/
