@@ -71,7 +71,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        
+
       - name: Update Ubuntu
         run: sh .github/scripts/update-os.sh
 
@@ -79,6 +79,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: reports
+          path: coverage/
 
-      - name: Update Ubuntu
+      - name: Send Email
         run: sh .github/scripts/send-email.sh
