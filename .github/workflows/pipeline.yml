@@ -61,3 +61,21 @@ jobs:
         with:
           name: builds
           path: dist/
+  notification:
+    runs-on: ubuntu-latest
+    env:
+      EMAIL_TO_SEND: ${{ secrets.EMAIL_TO_SEND }}
+      COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+    needs:
+      - build
+    steps:
+      name: Update Ubuntu
+      run: sh .github/scripts/update-os.sh
+
+        - name: Download artifacts
+          uses: actions/download-artifact@v4
+          with:
+            name: reports
+
+        - name: Update Ubuntu
+          run: sh .github/scripts/send-email.sh
