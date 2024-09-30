@@ -7,7 +7,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:cov": "vitest run --coverage",
-    "lint": "eslint src -c .ts",
+    "lint": "eslint src -c src/**/*.ts",
     "lint:fix": "eslint src -c .ts --fix",
     "build": "tsup"
   },
