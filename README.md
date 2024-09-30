@@ -1,5 +1,11 @@
 # DDD com Node.js
 
+## Integrantes
+
+- [ ] Pedro Augusto Barbosa Aparecido
+    - [ ] Matrícula: 170
+    - [ ] Curso: Engenharia de Software
+
 ## Visão Geral
 
 Este repositório é um modelo para implementar o Design Orientado a Domínio (DDD) usando Node.js. Ele foi projetado para
